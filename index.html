@@ -1,643 +1,874 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bravo Auto Center | Cachoeira do Sul - RS</title>
-  <meta name="description" content="Especialistas em escapamentos, suspensão, freios e sistema de direção em Cachoeira do Sul - RS. Ligue (51) 3723-7098." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bravo Auto Center — Cachoeira do Sul, RS</title>
+<meta name="description" content="Suspensão, freios, alinhamento 3D, pneus e escapamento em Cachoeira do Sul. Única oficina da região com Ruidcar, diagnóstico de suspensão com simulação de rodagem real.">
+<link rel="icon" href="assets/img/logo-bravo.png">
+<style>
+  :root{
+    --red:#EB0029;
+    --red-deep:#C10022;
+    --ink:#121316;
+    --ink-2:#1B1D21;
+    --paper:#F7F5F2;
+    --gray:#63666A;
+    --line-dark:rgba(255,255,255,0.1);
+    --line-light:rgba(18,19,22,0.12);
+    --cut: 5.5vw; /* diagonal depth */
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family: Calibri, "Carlito", "Segoe UI", Arial, sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:"Century Gothic", Questrial, Futura, "Segoe UI", Arial, sans-serif;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:15px 28px;
+    font-weight:bold; font-size:15.5px;
+    text-decoration:none; cursor:pointer;
+    border:1.5px solid transparent;
+    transition:transform .15s ease, background .2s ease, border-color .2s, color .2s;
+    /* the diagonal cut, applied to buttons too */
+    clip-path:polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn:focus-visible{ outline:3px solid #fff; outline-offset:2px; }
+  .btn-white{ background:#fff; color:var(--red); }
+  .btn-white:hover{ background:#f2f2f2; }
+  .btn-red{ background:var(--red); color:#fff; }
+  .btn-red:hover{ background:var(--red-deep); }
+  .btn-outline-dark{ border-color:rgba(255,255,255,0.4); color:#fff; clip-path:none; }
+  .btn-outline-dark:hover{ border-color:#fff; }
+  .btn-outline-light{ border-color:rgba(18,19,22,0.35); color:var(--ink); clip-path:none; }
+  .btn-outline-light:hover{ border-color:var(--ink); }
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .kicker{
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:11.5px; font-weight:bold;
+    letter-spacing:0.2em; text-transform:uppercase;
+  }
 
-    :root {
-      --red:      #EB0029;
-      --red-dk:   #C0001F;
-      --gray:     #666666;
-      --dark:     #0D0D0D;
-      --dark2:    #161616;
-      --dark3:    #222222;
-      --light:    #F4F4F4;
-      --white:    #FFFFFF;
-    }
+  /* ============ NAV ============ */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 30px;
+    background:linear-gradient(180deg, rgba(18,19,22,0.55), rgba(18,19,22,0));
+    transition:background .3s ease;
+  }
+  header.nav.scrolled{
+    background:rgba(18,19,22,0.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-logo img{ height:40px; width:auto; }
+  .nav-right{ display:flex; align-items:center; gap:26px; }
+  .nav-links{ display:flex; gap:34px; list-style:none; margin:0; padding:0; font-size:17.5px; font-weight:bold; }
+  .nav-links a{ color:rgba(247,245,242,0.85); text-decoration:none; }
+  .nav-links a:hover{ color:#fff; text-decoration:underline; text-underline-offset:5px; text-decoration-color:var(--red); text-decoration-thickness:2px; }
+  .nav-burger{ display:none; background:none; border:0; color:#fff; font-size:26px; cursor:pointer; padding:2px 8px; }
+  @media (max-width:880px){
+    .nav-links{ display:none; }
+    .nav-burger{ display:block; }
+    .nav-wa-label{ display:none; }
+  }
 
-    html { scroll-behavior: smooth; }
+  .mobile-menu{
+    display:none; position:fixed; inset:0; z-index:70;
+    background:var(--red); padding:22px 30px;
+  }
+  .mobile-menu.open{ display:block; }
+  .mobile-menu-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:44px; }
+  .mobile-menu ul{ list-style:none; margin:0 0 40px; padding:0; }
+  .mobile-menu li{ margin-bottom:24px; }
+  .mobile-menu a{
+    color:#fff; text-decoration:none; font-size:28px; font-weight:bold;
+    font-family:"Century Gothic", Arial, sans-serif;
+  }
+  .mobile-close{ background:none; border:0; color:#fff; font-size:30px; cursor:pointer; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--dark);
-      background: var(--white);
-      overflow-x: hidden;
-    }
+  /* ============ HERO — solid red field ============ */
+  .hero{
+    background:var(--red);
+    color:#fff;
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    overflow:hidden;
+    padding:120px 0 calc(var(--cut) + 90px);
+  }
+  .hero-inner{
+    max-width:1180px; margin:0 auto; padding:0 28px;
+    display:grid; grid-template-columns: 1.15fr 0.85fr; gap:60px; align-items:center;
+    width:100%;
+  }
+  @media (max-width:940px){
+    .hero-inner{ grid-template-columns:1fr; gap:44px; }
+  }
+  .hero-kicker{ color:rgba(255,255,255,0.85); margin-bottom:26px; display:block; }
+  .hero h1{
+    font-size:clamp(42px, 6.4vw, 78px);
+    line-height:0.98;
+    text-transform:uppercase;
+    margin-bottom:26px;
+    max-width:640px;
+  }
+  .hero h1 .slash{ color:var(--ink); }
+  .hero p.lead{
+    font-size:19px; max-width:520px;
+    color:rgba(255,255,255,0.92);
+    margin:0 0 36px;
+  }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:40px; }
+  .hero-proof{
+    display:inline-flex; align-items:center; gap:12px;
+    color:#fff; text-decoration:none; font-size:14.5px;
+    border-top:1px solid rgba(255,255,255,0.35);
+    padding-top:16px;
+  }
+  .hero-proof strong{ font-size:16px; }
+  .hero-proof .stars{ color:#FFD34D; letter-spacing:2px; }
 
-    /* ── NAV ─────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.5rem 2.5rem;
-      transition: background .3s, padding .3s, box-shadow .3s;
-    }
-    nav.scrolled {
-      background: rgba(13,13,13,.96);
-      backdrop-filter: blur(12px);
-      padding: 1rem 2.5rem;
-      box-shadow: 0 1px 0 rgba(255,255,255,.06);
-    }
-    .nav-logo {
-      display: flex; align-items: center;
-      text-decoration: none;
-    }
-    .nav-logo img { height: 36px; width: auto; }
-    .nav-logo span { color: var(--red); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      color: rgba(255,255,255,.65); text-decoration: none;
-      font-size: .8rem; font-weight: 500;
-      letter-spacing: .12em; text-transform: uppercase;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--white); }
-    .nav-cta {
-      background: var(--red) !important;
-      color: var(--white) !important;
-      padding: .45rem 1.25rem;
-      border-radius: 1px;
-    }
-    .nav-cta:hover { background: var(--red-dk) !important; }
+  .hero-photo{
+    position:relative;
+    clip-path:polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+    box-shadow:0 40px 80px -30px rgba(0,0,0,0.45);
+  }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; aspect-ratio:4/4.6; }
+  @media (max-width:940px){
+    .hero-photo{ clip-path:polygon(6% 0, 100% 0, 94% 100%, 0 100%); }
+    .hero-photo img{ aspect-ratio:16/10; }
+  }
+  /* diagonal bottom edge of hero */
+  .hero::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-1px;
+    height:var(--cut);
+    background:var(--ink);
+    clip-path:polygon(0 100%, 100% 0, 100% 100%);
+  }
 
-    /* ── HERO ────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      background: var(--dark);
-      display: flex; align-items: center;
-      position: relative; overflow: hidden;
-    }
-    /* grade diagonal decorativa (referência ao corte do logo) */
-    .hero-deco {
-      position: absolute; inset: 0; pointer-events: none;
-    }
-    .hero-deco::before {
-      content: '';
-      position: absolute; top: -20%; right: 18%;
-      width: 1.5px; height: 140%;
-      background: linear-gradient(to bottom, transparent, var(--red) 30%, var(--red) 70%, transparent);
-      transform: rotate(12deg); opacity: .7;
-    }
-    .hero-deco::after {
-      content: '';
-      position: absolute; top: -20%; right: 26%;
-      width: 1px; height: 140%;
-      background: linear-gradient(to bottom, transparent, rgba(235,0,41,.25) 40%, rgba(235,0,41,.25) 60%, transparent);
-      transform: rotate(12deg);
-    }
-    .hero-deco-block {
-      position: absolute; top: 0; right: 0;
-      width: 42%; height: 100%;
-      background: linear-gradient(135deg, transparent 0%, var(--dark2) 60%);
-    }
+  /* ============ TICKER ============ */
+  .ticker{
+    background:var(--ink);
+    border-bottom:1px solid var(--line-dark);
+    overflow:hidden;
+    padding:20px 0;
+  }
+  .ticker-track{
+    display:flex; gap:0;
+    width:max-content;
+    animation:ticker 28s linear infinite;
+  }
+  .ticker span{
+    font-family:"Century Gothic", Arial, sans-serif;
+    font-weight:bold; font-size:15px; text-transform:uppercase; letter-spacing:0.12em;
+    color:rgba(247,245,242,0.75);
+    padding:0 26px;
+    white-space:nowrap;
+    display:flex; align-items:center; gap:26px;
+  }
+  .ticker span::after{ content:"/"; color:var(--red); font-size:18px; }
+  @keyframes ticker{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none; flex-wrap:wrap; width:auto; } }
 
-    .hero-inner {
-      position: relative; z-index: 2;
-      max-width: 1200px; margin: 0 auto;
-      padding: 9rem 2.5rem 5rem;
-      width: 100%;
-    }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: .75rem;
-      margin-bottom: 1.75rem;
-    }
-    .hero-tag i { display: block; width: 2rem; height: 2px; background: var(--red); }
-    .hero-tag span {
-      font-size: .7rem; font-weight: 600;
-      letter-spacing: .2em; text-transform: uppercase; color: var(--red);
-    }
-    .hero h1 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(3.2rem, 8vw, 7.5rem);
-      font-weight: 800; line-height: 1;
-      color: var(--white); max-width: 680px;
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 em { font-style: normal; color: var(--red); }
-    .hero-sub {
-      font-size: 1.05rem; font-weight: 300;
-      color: rgba(255,255,255,.5); max-width: 460px;
-      line-height: 1.7; margin-bottom: 2.75rem;
-    }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  /* ============ RUIDCAR ============ */
+  .ruidcar{
+    background:var(--ink);
+    padding:110px 0 130px;
+    position:relative;
+  }
+  .ruidcar-head{
+    max-width:1180px; margin:0 auto 64px; padding:0 28px;
+    display:flex; align-items:flex-end; justify-content:space-between; gap:40px; flex-wrap:wrap;
+  }
+  .ruidcar-head .kicker{ color:var(--red); display:block; margin-bottom:18px; }
+  .ruidcar-head h2{
+    font-size:clamp(34px, 4.6vw, 56px);
+    text-transform:uppercase;
+    line-height:1.0;
+    max-width:640px;
+  }
+  .ruidcar-head h2 em{ font-style:normal; color:var(--red); }
+  .ruidcar-count{
+    font-family:"Century Gothic", Arial, sans-serif;
+    text-align:right;
+  }
+  .ruidcar-count .n{
+    font-size:clamp(52px, 6vw, 84px); font-weight:bold; color:var(--red); line-height:1; display:block;
+  }
+  .ruidcar-count .l{ font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(247,245,242,0.6); }
 
-    .btn {
-      display: inline-flex; align-items: center; gap: .6rem;
-      padding: .85rem 2rem;
-      font-size: .78rem; font-weight: 600;
-      letter-spacing: .1em; text-transform: uppercase;
-      text-decoration: none; border-radius: 1px;
-      transition: all .2s;
-    }
-    .btn-red  { background: var(--red); color: var(--white); }
-    .btn-red:hover { background: var(--red-dk); transform: translateY(-2px); }
-    .btn-ghost {
-      border: 1px solid rgba(255,255,255,.2); color: var(--white);
-    }
-    .btn-ghost:hover { border-color: rgba(255,255,255,.5); }
+  .ruidcar-grid{
+    max-width:1180px; margin:0 auto; padding:0 28px;
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:center;
+  }
+  @media (max-width:900px){ .ruidcar-grid{ grid-template-columns:1fr; gap:40px; } }
+  .ruidcar-video{
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 34px), calc(100% - 34px) 100%, 0 100%);
+    background:#000;
+    border:1px solid var(--line-dark);
+  }
+  .ruidcar-video video{ width:100%; display:block; }
+  .ruidcar-copy p{
+    color:rgba(247,245,242,0.78);
+    margin:0 0 16px; font-size:16.5px; max-width:520px;
+  }
+  .ruidcar-copy p strong{ color:#fff; }
+  .ruidcar-steps{
+    list-style:none; margin:30px 0 0; padding:0;
+    border-top:1px solid var(--line-dark);
+  }
+  .ruidcar-steps li{
+    display:flex; gap:18px; align-items:baseline;
+    padding:16px 0; border-bottom:1px solid var(--line-dark);
+    font-size:15.5px; color:rgba(247,245,242,0.85);
+  }
+  .ruidcar-steps .step-n{
+    font-family:"Century Gothic", Arial, sans-serif;
+    font-weight:bold; color:var(--red); font-size:15px;
+    min-width:34px;
+  }
 
-    .hero-stats {
-      position: absolute; bottom: 3rem; right: 2.5rem;
-      display: flex; gap: 3rem;
-    }
-    .stat { text-align: right; }
-    .stat-n {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.8rem; font-weight: 700;
-      color: var(--white); line-height: 1;
-    }
-    .stat-n em { font-style: normal; color: var(--red); }
-    .stat-l {
-      font-size: .65rem; letter-spacing: .12em;
-      text-transform: uppercase; color: rgba(255,255,255,.3);
-      margin-top: .3rem;
-    }
+  /* ============ SERVICES — alternating rows on light ============ */
+  .services{
+    background:var(--paper);
+    color:var(--ink);
+    position:relative;
+    padding:0 0 110px;
+  }
+  .services::before{
+    content:"";
+    display:block;
+    height:var(--cut);
+    background:var(--ink);
+    clip-path:polygon(0 0, 100% 0, 0 100%);
+  }
+  .services-head{
+    max-width:1180px; margin:70px auto 20px; padding:0 28px;
+  }
+  .services-head .kicker{ color:var(--red); display:block; margin-bottom:16px; }
+  .services-head h2{
+    font-size:clamp(32px,4.4vw,52px); text-transform:uppercase; line-height:1.02;
+    max-width:620px;
+  }
+  .service-row{
+    max-width:1180px; margin:0 auto; padding:64px 28px;
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+    border-bottom:1px solid var(--line-light);
+  }
+  .service-row:last-of-type{ border-bottom:0; padding-bottom:20px; }
+  @media (max-width:860px){
+    .service-row{ grid-template-columns:1fr; gap:30px; padding:48px 28px; }
+    .service-row .service-media{ order:-1; }
+  }
+  .service-row:nth-child(even) .service-media{ order:2; }
+  @media (max-width:860px){ .service-row:nth-child(even) .service-media{ order:-1; } }
+  .service-media{
+    position:relative;
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+    background:#111;
+  }
+  .service-media img, .service-media video{
+    width:100%; height:100%; object-fit:cover; aspect-ratio:4/3; display:block;
+  }
+  .service-num{
+    font-family:"Century Gothic", Arial, sans-serif;
+    font-weight:bold; font-size:14px; letter-spacing:0.16em;
+    color:var(--red);
+    display:block; margin-bottom:14px;
+  }
+  .service-copy h3{
+    font-size:clamp(24px,2.6vw,32px);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .service-copy p{ color:var(--gray); margin:0 0 10px; max-width:460px; }
+  .play-overlay{
+    position:absolute; inset:0; border:0; cursor:pointer;
+    background:rgba(0,0,0,0.22);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .play-overlay svg{ width:58px; height:58px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5)); }
 
-    /* ── SERVIÇOS ────────────────────────── */
-    .services { padding: 6rem 2.5rem; background: var(--white); }
-    .wrap { max-width: 1200px; margin: 0 auto; }
-    .sec-tag {
-      display: inline-flex; align-items: center; gap: .75rem;
-      margin-bottom: 1rem;
-    }
-    .sec-tag i { display: block; width: 1.5rem; height: 2px; background: var(--red); }
-    .sec-tag span {
-      font-size: .68rem; font-weight: 600;
-      letter-spacing: .2em; text-transform: uppercase; color: var(--red);
-    }
-    .sec-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(2.2rem, 4vw, 3.8rem);
-      font-weight: 700; line-height: 1; margin-bottom: 3rem;
-    }
-    .sec-title em { font-style: normal; color: var(--red); }
+  /* ============ NUMBERS band ============ */
+  .numbers{
+    background:var(--red);
+    color:#fff;
+    position:relative;
+    padding:calc(var(--cut) + 40px) 0 calc(var(--cut) + 40px);
+  }
+  .numbers::before{
+    content:"";
+    position:absolute; top:-1px; left:0; right:0; height:var(--cut);
+    background:var(--paper);
+    clip-path:polygon(0 0, 100% 0, 100% 100%);
+    transform:scaleY(-1);
+  }
+  .numbers::after{
+    content:"";
+    position:absolute; bottom:-1px; left:0; right:0; height:var(--cut);
+    background:var(--ink);
+    clip-path:polygon(0 100%, 100% 0, 100% 100%);
+  }
+  .numbers-grid{
+    max-width:1180px; margin:0 auto; padding:30px 28px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:40px;
+    position:relative; z-index:2;
+  }
+  @media (max-width:760px){ .numbers-grid{ grid-template-columns:1fr; gap:28px; } }
+  .num-item{ border-left:3px solid rgba(255,255,255,0.5); padding-left:22px; }
+  .num-item .n{
+    font-family:"Century Gothic", Arial, sans-serif;
+    font-size:clamp(40px,4.6vw,58px); font-weight:bold; line-height:1;
+    display:block; margin-bottom:8px;
+  }
+  .num-item .l{ font-size:14.5px; color:rgba(255,255,255,0.9); }
+  .num-item a{ color:#fff; }
 
-    .srv-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: #e8e8e8;
-    }
-    .srv-card {
-      background: var(--white);
-      padding: 2.5rem 2rem;
-      position: relative; overflow: hidden;
-      cursor: default;
-      transition: background .3s;
-    }
-    .srv-card::after {
-      content: ''; position: absolute;
-      bottom: 0; left: 0; width: 0; height: 2px;
-      background: var(--red); transition: width .4s ease;
-    }
-    .srv-card:hover { background: var(--dark); }
-    .srv-card:hover .srv-icon { color: var(--red); }
-    .srv-card:hover .srv-name { color: var(--white); }
-    .srv-card:hover .srv-desc { color: rgba(255,255,255,.4); }
-    .srv-card:hover::after { width: 100%; }
-    .srv-icon {
-      font-size: 1.8rem; margin-bottom: 1.5rem;
-      color: #bbb; transition: color .3s;
-    }
-    .srv-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.5rem; font-weight: 700;
-      margin-bottom: .6rem; color: var(--dark);
-      transition: color .3s;
-    }
-    .srv-desc {
-      font-size: .85rem; color: var(--gray);
-      line-height: 1.65; transition: color .3s;
-    }
+  /* ============ LOCATION ============ */
+  .location{
+    background:var(--ink);
+    padding:110px 0;
+  }
+  .loc-grid{
+    max-width:1180px; margin:0 auto; padding:0 28px;
+    display:grid; grid-template-columns:1fr 1fr; gap:60px;
+  }
+  @media (max-width:880px){ .loc-grid{ grid-template-columns:1fr; } }
+  .loc-copy .kicker{ color:var(--red); display:block; margin-bottom:16px; }
+  .loc-copy h2{
+    font-size:clamp(30px,3.8vw,44px); text-transform:uppercase; line-height:1.04;
+    margin-bottom:30px;
+  }
+  .hours{
+    width:100%; border-collapse:collapse; margin-bottom:34px;
+  }
+  .hours td{
+    padding:12px 0; font-size:15.5px;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .hours td:first-child{ font-weight:bold; color:#fff; }
+  .hours td:last-child{ text-align:right; color:rgba(247,245,242,0.7); }
+  .loc-actions{ display:flex; flex-wrap:wrap; gap:12px; }
+  .map-cut{
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 34px), calc(100% - 34px) 100%, 0 100%);
+    border:1px solid var(--line-dark);
+    min-height:380px;
+  }
+  .map-cut iframe{ width:100%; height:100%; min-height:380px; border:0; display:block; }
 
-    /* ── SOBRE ───────────────────────────── */
-    .about {
-      padding: 6rem 2.5rem; background: var(--dark);
-      position: relative; overflow: hidden;
-    }
-    .about-deco {
-      position: absolute; top: 0; left: 38%;
-      width: 1px; height: 100%;
-      background: linear-gradient(to bottom, transparent, rgba(235,0,41,.2) 20%, rgba(235,0,41,.2) 80%, transparent);
-      pointer-events: none;
-    }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center;
-      position: relative; z-index: 1;
-    }
-    .about .sec-title { color: var(--white); }
-    .about-lead {
-      font-size: .95rem; line-height: 1.75;
-      color: rgba(255,255,255,.45); margin-top: 1.25rem;
-    }
-    .rating-box {
-      margin-top: 2.5rem;
-      display: inline-flex; align-items: center; gap: 1.5rem;
-      padding: 1.25rem 1.75rem;
-      border: 1px solid rgba(255,255,255,.08);
-      border-left: 3px solid var(--red);
-    }
-    .rating-n {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 3.8rem; font-weight: 700;
-      color: var(--white); line-height: 1;
-    }
-    .rating-stars { color: var(--red); font-size: 1rem; letter-spacing: .1em; }
-    .rating-lbl {
-      font-size: .7rem; letter-spacing: .1em;
-      text-transform: uppercase; color: rgba(255,255,255,.3);
-      margin-top: .3rem;
-    }
+  /* ============ FOOTER ============ */
+  footer{
+    background:var(--ink);
+    border-top:1px solid var(--line-dark);
+    padding:50px 0 30px;
+    color:rgba(247,245,242,0.6);
+  }
+  .foot-grid{
+    max-width:1180px; margin:0 auto; padding:0 28px 34px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:36px;
+    border-bottom:1px solid var(--line-dark);
+    margin-bottom:26px;
+  }
+  .foot-brand img{ height:24px; margin-bottom:14px; }
+  .foot-brand p{ max-width:280px; font-size:14px; margin:0; }
+  .foot-col h4{
+    font-family:Verdana, Geneva, sans-serif; font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase; color:#fff; margin:0 0 14px;
+  }
+  .foot-col a, .foot-col p{ display:block; font-size:14.5px; color:rgba(247,245,242,0.6); text-decoration:none; margin:0 0 8px; }
+  .foot-col a:hover{ color:#fff; }
+  .foot-bottom{
+    max-width:1180px; margin:0 auto; padding:0 28px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:13px;
+  }
 
-    .difs { display: flex; flex-direction: column; }
-    .dif {
-      display: flex; gap: 1.5rem; align-items: flex-start;
-      padding: 1.6rem 0; border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .dif:last-child { border-bottom: none; }
-    .dif-n {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.8rem; font-weight: 700;
-      color: rgba(235,0,41,.18); line-height: 1;
-      min-width: 2.8rem;
-    }
-    .dif-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.15rem; font-weight: 600;
-      color: var(--white); margin-bottom: .3rem;
-    }
-    .dif-desc { font-size: .8rem; color: rgba(255,255,255,.35); line-height: 1.55; }
+  /* ============ FLOATING WHATSAPP ============ */
+  .wa-float{
+    position:fixed;
+    right:24px; bottom:24px;
+    z-index:80;
+    width:62px; height:62px;
+    border-radius:50%;
+    background:#25D366;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .wa-float:hover{ transform:scale(1.08); box-shadow:0 12px 30px rgba(0,0,0,0.5); }
+  .wa-float:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
+  .wa-float svg{ width:34px; height:34px; fill:#fff; }
+  .wa-float::after{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:2px solid #25D366;
+    animation:wa-pulse 2.4s ease-out infinite;
+  }
+  @keyframes wa-pulse{
+    0%{ transform:scale(1); opacity:0.8; }
+    70%{ transform:scale(1.45); opacity:0; }
+    100%{ transform:scale(1.45); opacity:0; }
+  }
+  @media (prefers-reduced-motion:reduce){ .wa-float::after{ animation:none; display:none; } }
+  @media (max-width:600px){ .wa-float{ right:16px; bottom:16px; width:58px; height:58px; } }
 
-    /* ── CONTATO ─────────────────────────── */
-    .contact { padding: 6rem 2.5rem; background: var(--light); }
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: start;
-    }
-    .hours { margin-top: 2rem; }
-    .hour-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: .9rem 0; border-bottom: 1px solid rgba(0,0,0,.07);
-      font-size: .88rem;
-    }
-    .hour-day { color: var(--gray); font-weight: 500; }
-    .hour-time { font-weight: 600; color: var(--dark); }
-    .hour-closed { color: rgba(0,0,0,.25); }
+  /* freios: show full before/after image with blurred backdrop */
+  .service-media.fit-contain{ overflow:hidden; }
+  .service-media.fit-contain .bg-blur{
+    position:absolute; inset:-20px;
+    background-size:cover; background-position:center;
+    filter:blur(18px) brightness(0.55);
+    z-index:0;
+  }
+  .service-media.fit-contain img{
+    position:relative; z-index:1;
+    object-fit:contain;
+    background:transparent;
+  }
 
-    .cinfo { display: flex; flex-direction: column; gap: .9rem; margin-top: 2rem; }
-    .cinfo-row {
-      display: flex; align-items: center; gap: 1rem;
-      text-decoration: none; color: var(--dark);
-      font-size: .88rem; transition: color .2s;
-    }
-    .cinfo-row:hover { color: var(--red); }
-    .cinfo-icon {
-      width: 2.6rem; height: 2.6rem; flex-shrink: 0;
-      background: var(--white); border-radius: 1px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,.08);
-    }
+  /* ============ REVIEWS (Google) ============ */
+  .reviews{
+    background:var(--red);
+    color:#fff;
+    position:relative;
+    padding:calc(var(--cut) + 50px) 0 calc(var(--cut) + 50px);
+  }
+  .reviews::before{
+    content:"";
+    position:absolute; top:-1px; left:0; right:0; height:var(--cut);
+    background:var(--paper);
+    clip-path:polygon(0 0, 100% 0, 0 100%);
+  }
+  .reviews::after{
+    content:"";
+    position:absolute; bottom:-1px; left:0; right:0; height:var(--cut);
+    background:var(--ink);
+    clip-path:polygon(0 100%, 100% 0, 100% 100%);
+  }
+  .reviews-grid{
+    max-width:1180px; margin:0 auto; padding:20px 28px;
+    display:grid; grid-template-columns:0.8fr 1.2fr; gap:56px;
+    position:relative; z-index:2;
+    align-items:center;
+  }
+  @media (max-width:860px){ .reviews-grid{ grid-template-columns:1fr; gap:36px; } }
+  .rating-block{ border-left:3px solid rgba(255,255,255,0.5); padding-left:24px; }
+  .rating-block .n{
+    font-family:"Century Gothic", Arial, sans-serif;
+    font-size:clamp(56px,6.5vw,86px); font-weight:bold; line-height:1;
+    display:block;
+  }
+  .rating-block .stars{ color:#FFD34D; font-size:22px; letter-spacing:3px; display:block; margin:8px 0 6px; }
+  .rating-block .l{ font-size:15px; color:rgba(255,255,255,0.92); }
+  .rating-block a{ color:#fff; }
+  .review-carousel{ position:relative; min-height:190px; }
+  .review-slide{
+    position:absolute; inset:0;
+    opacity:0; visibility:hidden;
+    transition:opacity .6s ease;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .review-slide.active{ opacity:1; visibility:visible; position:relative; }
+  .review-slide blockquote{
+    margin:0 0 18px;
+    font-size:clamp(18px, 2vw, 22px);
+    line-height:1.5;
+    font-style:italic;
+    color:#fff;
+    max-width:600px;
+  }
+  .review-slide blockquote::before{ content:"“"; font-size:1.4em; }
+  .review-slide blockquote::after{ content:"”"; font-size:1.4em; }
+  .review-author{
+    display:flex; align-items:center; gap:10px;
+    font-size:14.5px; font-weight:bold;
+  }
+  .review-author .mini-stars{ color:#FFD34D; letter-spacing:1px; }
+  .review-dots{ display:flex; gap:8px; margin-top:24px; }
+  .review-dots button{
+    width:10px; height:10px; border-radius:50%;
+    border:0; padding:0; cursor:pointer;
+    background:rgba(255,255,255,0.4);
+    transition:background .2s, transform .2s;
+  }
+  .review-dots button.active{ background:#fff; transform:scale(1.25); }
+  .review-dots button:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
 
-    .map-box {
-      margin-top: 2rem; border-radius: 1px;
-      overflow: hidden; height: 230px;
-    }
-    .map-box iframe { width: 100%; height: 100%; border: none; display: block; }
-    .map-btn { margin-top: .75rem; display: flex; }
-    .map-btn .btn { width: 100%; justify-content: center; }
-
-    /* ── FOOTER ──────────────────────────── */
-    footer {
-      background: var(--dark2);
-      padding: 3rem 2.5rem 2rem;
-      border-top: 1px solid rgba(255,255,255,.05);
-    }
-    .foot-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 1.5rem;
-    }
-    .foot-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.5rem; font-weight: 800;
-      letter-spacing: .08em; color: var(--white);
-    }
-    .foot-logo span { color: var(--red); }
-    .foot-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
-    .foot-links a {
-      color: rgba(255,255,255,.35); text-decoration: none;
-      font-size: .78rem; letter-spacing: .08em;
-      transition: color .2s;
-    }
-    .foot-links a:hover { color: var(--white); }
-    .foot-copy {
-      width: 100%;
-      text-align: center;
-      color: rgba(255,255,255,.18);
-      font-size: .72rem;
-      padding-top: 1.5rem;
-      margin-top: .5rem;
-      border-top: 1px solid rgba(255,255,255,.05);
-    }
-
-    /* ── WA FLOAT ────────────────────────── */
-    .wa-float {
-      position: fixed; bottom: 1.75rem; right: 1.75rem; z-index: 999;
-      width: 3.5rem; height: 3.5rem; border-radius: 50%;
-      background: #25D366;
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(37,211,102,.4);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .wa-float:hover {
-      transform: scale(1.12);
-      box-shadow: 0 6px 28px rgba(37,211,102,.5);
-    }
-
-    /* ── MOBILE ──────────────────────────── */
-    @media (max-width: 900px) {
-      .srv-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 680px) {
-      nav { padding: 1rem 1.25rem; }
-      nav.scrolled { padding: .8rem 1.25rem; }
-      .nav-links { display: none; }
-
-      .hero-inner { padding: 7rem 1.25rem 6rem; }
-      .hero-stats { right: 1.25rem; bottom: 1.75rem; gap: 1.5rem; }
-      .stat-n { font-size: 2rem; }
-
-      .services, .about, .contact { padding: 4rem 1.25rem; }
-      .srv-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-
-      .foot-inner { flex-direction: column; text-align: center; }
-      .foot-links { justify-content: center; gap: 1.25rem; }
-    }
-  </style>
+  /* reveal */
+  .reveal{ opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .btn{ transition:none; }
+  }
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo">
-    <img src="assets/logo/logo-bravo.jpg" alt="Bravo Auto Center" />
-  </a>
-  <ul class="nav-links">
-    <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#contato">Contato</a></li>
-    <li><a href="https://wa.me/5551995213636" target="_blank" rel="noopener" class="nav-cta">WhatsApp</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-deco"></div>
-  <div class="hero-deco-block"></div>
-  <div class="hero-inner">
-    <div class="hero-tag">
-      <i></i>
-      <span>Cachoeira do Sul — RS</span>
-    </div>
-    <h1>Excelência em cada <em>detalhe.</em></h1>
-    <p class="hero-sub">
-      Especialistas em escapamentos, suspensão, freios e sistema de direção. Qualidade e confiança para o seu veículo.
-    </p>
-    <div class="hero-btns">
-      <a href="https://wa.me/5551995213636" target="_blank" rel="noopener" class="btn btn-red">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Falar no WhatsApp
-      </a>
-      <a href="tel:+555137237098" class="btn btn-ghost">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
-        (51) 3723-7098
-      </a>
-    </div>
-  </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-n">4<em>,7</em></div>
-      <div class="stat-l">Google ★</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n">141<em>+</em></div>
-      <div class="stat-l">Avaliações</div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVIÇOS -->
-<section class="services" id="servicos">
-  <div class="wrap">
-    <div class="sec-tag"><i></i><span>O que fazemos</span></div>
-    <h2 class="sec-title">Nossos <em>serviços</em></h2>
-    <div class="srv-grid">
-      <div class="srv-card">
-        <div class="srv-icon">🔧</div>
-        <div class="srv-name">Escapamentos</div>
-        <p class="srv-desc">Instalação, manutenção e reparo completo de escapamentos. Diagnóstico preciso para melhor desempenho e economia.</p>
-      </div>
-      <div class="srv-card">
-        <div class="srv-icon">⚙️</div>
-        <div class="srv-name">Suspensão</div>
-        <p class="srv-desc">Revisão e substituição de componentes de suspensão. Mais conforto, estabilidade e segurança na direção.</p>
-      </div>
-      <div class="srv-card">
-        <div class="srv-icon">🛞</div>
-        <div class="srv-name">Freios</div>
-        <p class="srv-desc">Manutenção de discos, pastilhas, tambores e lonas. Seu carro freia com segurança quando você precisar.</p>
-      </div>
-      <div class="srv-card">
-        <div class="srv-icon">🚗</div>
-        <div class="srv-name">Sistema de Direção</div>
-        <p class="srv-desc">Diagnóstico e reparo do sistema de direção. Precisão e controle total do seu veículo.</p>
-      </div>
-      <div class="srv-card">
-        <div class="srv-icon">🔩</div>
-        <div class="srv-name">Manutenção Geral</div>
-        <p class="srv-desc">Revisões preventivas e corretivas com mão de obra especializada e peças de procedência garantida.</p>
-      </div>
-      <div class="srv-card">
-        <div class="srv-icon">🛠️</div>
-        <div class="srv-name">Diagnóstico</div>
-        <p class="srv-desc">Identificação rápida e precisa de falhas. Solução eficiente para você voltar à estrada sem preocupações.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SOBRE -->
-<section class="about" id="sobre">
-  <div class="about-deco"></div>
-  <div class="wrap">
-    <div class="about-grid">
-      <div>
-        <div class="sec-tag"><i></i><span>Por que a Bravo?</span></div>
-        <h2 class="sec-title" style="color:var(--white)">Confiança que você <em>sente</em> na estrada</h2>
-        <p class="about-lead">Na Bravo Auto Center, cada serviço é realizado com atenção, técnica e respeito pelo seu veículo. Nossa equipe está preparada para resolver do mais simples ao mais complexo — sempre com transparência.</p>
-        <div class="rating-box">
-          <div class="rating-n">4,7</div>
-          <div>
-            <div class="rating-stars">★ ★ ★ ★ ★</div>
-            <div class="rating-lbl">141 avaliações no Google</div>
-          </div>
-        </div>
-      </div>
-      <div class="difs">
-        <div class="dif">
-          <div class="dif-n">01</div>
-          <div>
-            <div class="dif-title">Equipe especializada</div>
-            <div class="dif-desc">Profissionais treinados e experientes em cada área de serviço automotivo.</div>
-          </div>
-        </div>
-        <div class="dif">
-          <div class="dif-n">02</div>
-          <div>
-            <div class="dif-title">Peças de qualidade</div>
-            <div class="dif-desc">Utilizamos somente peças de procedência garantida, com rastreabilidade.</div>
-          </div>
-        </div>
-        <div class="dif">
-          <div class="dif-n">03</div>
-          <div>
-            <div class="dif-title">Orçamento transparente</div>
-            <div class="dif-desc">Diagnóstico claro e orçamento honesto antes de qualquer serviço ser iniciado.</div>
-          </div>
-        </div>
-        <div class="dif">
-          <div class="dif-n">04</div>
-          <div>
-            <div class="dif-title">Atendimento via WhatsApp</div>
-            <div class="dif-desc">Tire dúvidas e agende serviços diretamente pelo WhatsApp, de forma rápida.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTATO -->
-<section class="contact" id="contato">
-  <div class="wrap">
-    <div class="sec-tag"><i></i><span>Venha nos visitar</span></div>
-    <h2 class="sec-title">Onde <em>estamos</em></h2>
-    <div class="contact-grid">
-      <div>
-        <div class="hours">
-          <div class="hour-row">
-            <span class="hour-day">Segunda — Sexta</span>
-            <span class="hour-time">08:00 – 12:00 · 13:30 – 17:30</span>
-          </div>
-          <div class="hour-row">
-            <span class="hour-day">Sábado</span>
-            <span class="hour-time">08:00 – 12:00</span>
-          </div>
-          <div class="hour-row">
-            <span class="hour-day">Domingo</span>
-            <span class="hour-closed">Fechado</span>
-          </div>
-        </div>
-        <div class="cinfo">
-          <a href="tel:+555137237098" class="cinfo-row">
-            <div class="cinfo-icon">📞</div>
-            (51) 3723-7098
-          </a>
-          <a href="https://wa.me/5551995213636" target="_blank" rel="noopener" class="cinfo-row">
-            <div class="cinfo-icon">💬</div>
-            (51) 99521-3636
-          </a>
-          <a href="https://www.instagram.com/bravoautocenter" target="_blank" rel="noopener" class="cinfo-row">
-            <div class="cinfo-icon">📸</div>
-            @bravoautocenter
-          </a>
-          <div class="cinfo-row">
-            <div class="cinfo-icon">📍</div>
-            R. Aparicio Borges, 538 — São José, Cachoeira do Sul – RS
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="map-box">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3464.35!2d-52.9080566!3d-30.0292459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9504a7909efb03f7%3A0x4ee0ab214515f289!2sBravo%20Auto%20Center!5e0!3m2!1spt-BR!2sbr!4v1"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-        </div>
-        <div class="map-btn">
-          <a href="https://maps.app.goo.gl/3HpLLAMCEZCEs7Q38" target="_blank" rel="noopener" class="btn btn-red" style="width:100%;justify-content:center;margin-top:.5rem">
-            📍 Abrir no Google Maps
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- GALERIA -->
-<section style="padding:5rem 2.5rem; background:var(--light);">
-  <div class="wrap">
-    <div class="sec-tag"><i></i><span>Nosso trabalho</span></div>
-    <h2 class="sec-title" style="margin-bottom:2.5rem">Do <em>Instagram</em></h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
-      <div style="overflow:hidden;border-radius:2px;aspect-ratio:1;background:#111">
-        <img src="assets/photos/foto-1.png" alt="Bravo Auto Center" style="width:100%;height:100%;object-fit:cover;display:block;" />
-      </div>
-      <div style="overflow:hidden;border-radius:2px;aspect-ratio:1;background:#111">
-        <img src="assets/photos/foto-2.png" alt="Bravo Auto Center" style="width:100%;height:100%;object-fit:cover;display:block;" />
-      </div>
-      <div style="overflow:hidden;border-radius:2px;aspect-ratio:1;background:#111">
-        <img src="assets/photos/foto-3.png" alt="Bravo Auto Center" style="width:100%;height:100%;object-fit:cover;display:block;" />
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:1.5rem">
-      <a href="https://www.instagram.com/bravoautocenter" target="_blank" rel="noopener"
-         style="display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);text-decoration:none;">
-        <span>@bravoautocenter</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="foot-inner">
-    <div class="foot-logo">BRAVO<span>.</span></div>
-    <ul class="foot-links">
+<header class="nav" id="nav">
+  <a href="#top" class="nav-logo"><img src="assets/img/logo-bravo-white.png" alt="Bravo Auto Center"></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#ruidcar">Ruidcar</a></li>
       <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#contato">Contato</a></li>
-      <li><a href="https://www.instagram.com/bravoautocenter" target="_blank" rel="noopener">Instagram</a></li>
-      <li><a href="https://wa.me/5551995213636" target="_blank" rel="noopener">WhatsApp</a></li>
-      <li><a href="https://maps.app.goo.gl/3HpLLAMCEZCEs7Q38" target="_blank" rel="noopener">Google</a></li>
+      <li><a href="#localizacao">Localização</a></li>
     </ul>
-    <p class="foot-copy">© 2026 Bravo Auto Center · R. Aparicio Borges, 538 – Cachoeira do Sul – RS</p>
+    <button class="nav-burger" aria-label="Abrir menu" onclick="document.getElementById('mmenu').classList.add('open')">☰</button>
+  </div>
+</header>
+
+<div id="mmenu" class="mobile-menu">
+  <div class="mobile-menu-top">
+    <img src="assets/img/logo-bravo-white.png" alt="Bravo Auto Center" style="height:22px;">
+    <button class="mobile-close" aria-label="Fechar menu" onclick="document.getElementById('mmenu').classList.remove('open')">×</button>
+  </div>
+  <ul>
+    <li><a href="#ruidcar" onclick="document.getElementById('mmenu').classList.remove('open')">Ruidcar</a></li>
+    <li><a href="#servicos" onclick="document.getElementById('mmenu').classList.remove('open')">Serviços</a></li>
+    <li><a href="#localizacao" onclick="document.getElementById('mmenu').classList.remove('open')">Localização</a></li>
+  </ul>
+  <a class="btn btn-white" href="https://wa.me/5551995213636" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+</div>
+
+<div id="top"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="kicker hero-kicker">Oficina mecânica · Cachoeira do Sul, RS</span>
+      <h1>Seu carro<br>fala.<br><span class="slash">A gente<br>escuta.</span></h1>
+      <p class="lead">Suspensão, freios, geometria 3D, pneus e escapamento — com diagnóstico de precisão feito pela única Ruidcar da região.</p>
+      <div class="hero-actions">
+        <a class="btn btn-white" href="https://wa.me/5551995213636" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <a class="btn btn-outline-dark" href="tel:+555137237098">(51) 3723-7098</a>
+      </div>
+      <a class="hero-proof" href="https://maps.app.goo.gl/3HpLLAMCEZCEs7Q38" target="_blank" rel="noopener">
+        <span class="stars">★★★★★</span>
+        <span><strong>4,7</strong> · 141 avaliações no Google</span>
+      </a>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/img/hero-fachada-carro.jpg" alt="Fachada da Bravo Auto Center com Chevrolet Omega preto estacionado">
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span>Geometria 3D</span><span>Balanceamento</span><span>Pneus</span><span>Escapamento</span><span>Solda inox</span><span>Freios</span><span>Troca de óleo</span><span>Diagnóstico Ruidcar</span>
+  </div>
+</div>
+
+<section class="ruidcar" id="ruidcar">
+  <div class="ruidcar-head reveal">
+    <div>
+      <span class="kicker">Exclusividade regional</span>
+      <h2>A única <em>Ruidcar</em> da região está aqui.</h2>
+    </div>
+    <div class="ruidcar-count">
+      <span class="n">01</span>
+      <span class="l">na região inteira</span>
+    </div>
+  </div>
+  <div class="ruidcar-grid">
+    <div class="ruidcar-copy reveal">
+      <p><strong>O problema clássico:</strong> o barulho aparece rodando, mas some no elevador. Com o carro suspenso, o peso do conjunto se acomoda e a peça gasta volta pro lugar — e o defeito se esconde.</p>
+      <p>A Ruidcar reproduz o movimento de rodagem com o carro no elevador. O ruído volta a aparecer, isolado e localizável, na frente do mecânico.</p>
+      <ul class="ruidcar-steps">
+        <li><span class="step-n">01</span> O carro sobe no elevador sobre as plataformas da Ruidcar.</li>
+        <li><span class="step-n">02</span> A máquina simula diferentes condições de pista, com o carro parado.</li>
+        <li><span class="step-n">03</span> O ruído se manifesta e é localizado com precisão, peça por peça.</li>
+        <li><span class="step-n">04</span> Você aprova o orçamento sabendo exatamente o que precisa trocar.</li>
+      </ul>
+    </div>
+    <div class="ruidcar-video reveal">
+      <video controls playsinline preload="metadata" poster="assets/img/poster-ruidcar.jpg">
+        <source src="assets/video/ruidcar.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicos">
+  <div class="services-head reveal">
+    <span class="kicker">Serviços</span>
+    <h2>Tudo que roda, freia e ronca — resolvido.</h2>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-copy">
+      <span class="service-num">/ 01</span>
+      <h3>Geometria 3D</h3>
+      <p>Alinhamento de precisão com equipamento 3D: rodas no ângulo exato de fábrica, direção estável e pneus durando o que devem durar.</p>
+    </div>
+    <div class="service-media">
+      <img src="assets/img/geometria.jpg" alt="Alinhamento 3D em Renault Duster 4x4 na Bravo Auto Center">
+    </div>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-copy">
+      <span class="service-num">/ 02</span>
+      <h3>Balanceamento</h3>
+      <p>Corrige a distribuição de peso das rodas, elimina trepidação no volante e evita desgaste irregular dos pneus.</p>
+    </div>
+    <div class="service-media">
+      <button class="play-overlay" aria-label="Reproduzir vídeo de balanceamento" onclick="this.style.display='none'; const v=this.nextElementSibling; v.setAttribute('controls',''); v.play();">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.4)"/><path d="M9 7l8 5-8 5V7z" fill="#fff"/></svg>
+      </button>
+      <video muted loop playsinline preload="metadata" poster="assets/img/poster-balanceamento.jpg">
+        <source src="assets/video/balanceamento.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-copy">
+      <span class="service-num">/ 03</span>
+      <h3>Pneus</h3>
+      <p>Venda, montagem e troca com estoque na loja. Indicamos a medida e o modelo certo pro seu uso — cidade, estrada ou carga.</p>
+    </div>
+    <div class="service-media">
+      <img src="assets/img/pneus.jpg" alt="Estoque de pneus novos na loja da Bravo Auto Center">
+    </div>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-copy">
+      <span class="service-num">/ 04</span>
+      <h3>Escapamento & solda inox</h3>
+      <p>Fabricação, reparo e troca de escapamento, incluindo solda em aço inox e ponteiras esportivas. Veja o acabamento de perto:</p>
+    </div>
+    <div class="service-media">
+      <button class="play-overlay" aria-label="Reproduzir vídeo de solda de escapamento em inox" onclick="this.style.display='none'; const v=this.nextElementSibling; v.setAttribute('controls',''); v.play();">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.4)"/><path d="M9 7l8 5-8 5V7z" fill="#fff"/></svg>
+      </button>
+      <video muted playsinline preload="metadata" poster="assets/img/poster-solda.jpg">
+        <source src="assets/video/solda-escapamento.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-copy">
+      <span class="service-num">/ 05</span>
+      <h3>Freios</h3>
+      <p>Discos, pastilhas, fluido e reparo completo do sistema. O antes e depois fala por si.</p>
+    </div>
+    <div class="service-media fit-contain">
+      <div class="bg-blur" style="background-image:url('assets/img/freios.jpg');"></div>
+      <img src="assets/img/freios.jpg" alt="Disco de freio antes e depois da troca na Bravo Auto Center">
+    </div>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-copy">
+      <span class="service-num">/ 06</span>
+      <h3>Troca de óleo & filtros</h3>
+      <p>Manutenção preventiva com produtos de qualidade e no intervalo certo — o jeito mais barato de evitar problema caro.</p>
+    </div>
+    <div class="service-media">
+      <img src="assets/img/oleo.jpg" alt="Troca de óleo com Total Quartz e filtro Tecfil na Bravo Auto Center">
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="avaliacoes">
+  <div class="reviews-grid">
+    <div class="rating-block reveal">
+      <span class="n">4,7</span>
+      <span class="stars">★★★★★</span>
+      <span class="l"><a href="https://maps.app.goo.gl/3HpLLAMCEZCEs7Q38" target="_blank" rel="noopener">141 avaliações no Google</a></span>
+    </div>
+    <div class="review-carousel reveal" id="reviewCarousel" aria-live="polite">
+      <!-- EDITE AQUI: substitua o texto e o nome de cada slide por comentários
+           reais copiados do seu perfil no Google Empresas. Para adicionar mais,
+           duplique um bloco review-slide inteiro (os pontinhos se ajustam sozinhos). -->
+      <div class="review-slide active">
+        <blockquote>Ótimo atendimento.. serviço de confiança ...</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Daniel Trindade</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>Atendimento diferenciado. Não é uma oficina comum, o serviço é muito superior. Peças de qualidade, atendimento excelente e preço justo. Recomendo demais!!</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Je Digital</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>Agilidade e bom atendimento. Resolveram rápido o problema do meu veículo.</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Marcos Freitas</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>O pessoal trabalha muito bem. Peças de qualidade, serviço rápido e preço justo.</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Leonardo Rafael</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>Atendimento sensacional. Possui mão de obra e preço das peças com um valor acessível.</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Juliano L.</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>É de confiança! Recomendo</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Ubirata Presseler</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>Serviços de suspensão, surdinas e freios com preços justos e serviço de qualidade</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Adriano Martins</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>Prestação de serviço rápida e de qualidade, serviço seguro e um ótimo lugar para a manutenção do seu carro na área de escapamentos.</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Wellington da Costa Tavares</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>Serviço de qualidade com preço justo.</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Joana Garske</div>
+      </div>
+      <div class="review-slide">
+        <blockquote>A melhor auto center de Cachoeira. Pessoas íntegras, que fazem um trabalho impecável e tem um atendimento ótimo. Produtos de qualidade, serviços muito bem feitos. Pra mim e pra minha família, nota 1000... Confiança e qualidade definem.</blockquote>
+        <div class="review-author"><span class="mini-stars">★★★★★</span> Vanessa Viegas</div>
+      </div>
+      <div class="review-dots" id="reviewDots" role="tablist" aria-label="Navegar entre avaliações"></div>
+    </div>
+  </div>
+</section>
+
+<section class="location" id="localizacao">
+  <div class="loc-grid">
+    <div class="loc-copy reveal">
+      <span class="kicker">Onde estamos</span>
+      <h2>R. Aparício Borges, 538<br>São José · Cachoeira do Sul, RS</h2>
+      <table class="hours">
+        <tr><td>Segunda a sexta</td><td>08h–12h · 13h30–17h30</td></tr>
+        <tr><td>Sábado</td><td>08h–12h</td></tr>
+        <tr><td>Domingo</td><td>Fechado</td></tr>
+      </table>
+      <div class="loc-actions">
+        <a class="btn btn-red" href="https://wa.me/5551995213636" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-outline-dark" href="tel:+555137237098">(51) 3723-7098</a>
+        <a class="btn btn-outline-dark" href="https://maps.app.goo.gl/3HpLLAMCEZCEs7Q38" target="_blank" rel="noopener">Google Maps</a>
+      </div>
+    </div>
+    <div class="map-cut reveal">
+      <iframe src="https://www.google.com/maps?q=Bravo+Auto+Center,+Rua+Apar%C3%ADcio+Borges+538,+Cachoeira+do+Sul,+RS&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da Bravo Auto Center"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img src="assets/img/logo-bravo-white.png" alt="Bravo Auto Center">
+      <p>Suspensão, freios, geometria, pneus e escapamento em Cachoeira do Sul — com diagnóstico de precisão.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Navegar</h4>
+      <a href="#ruidcar">Ruidcar</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#localizacao">Localização</a>
+    </div>
+    <div class="foot-col">
+      <h4>Contato</h4>
+      <a href="https://wa.me/5551995213636" target="_blank" rel="noopener">WhatsApp (51) 99521-3636</a>
+      <a href="tel:+555137237098">(51) 3723-7098</a>
+      <a href="https://www.instagram.com/bravoautocenter" target="_blank" rel="noopener">@bravoautocenter</a>
+    </div>
+    <div class="foot-col">
+      <h4>Endereço</h4>
+      <p>R. Aparício Borges, 538</p>
+      <p>São José, Cachoeira do Sul – RS</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Bravo Auto Center</span>
+    <span>Cachoeira do Sul, RS</span>
   </div>
 </footer>
 
-<!-- WHATSAPP FLUTUANTE -->
-<a href="https://wa.me/5551995213636" target="_blank" rel="noopener" class="wa-float" title="Falar no WhatsApp">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<a class="wa-float" href="https://wa.me/5551995213636" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M16.04 3C9.42 3 4.05 8.36 4.05 14.97c0 2.11.55 4.17 1.6 5.99L4 29l8.23-1.61a12.02 12.02 0 0 0 3.8.62h.01c6.61 0 11.98-5.36 11.98-11.97C28.02 8.36 22.65 3 16.04 3zm0 21.87h-.01a9.9 9.9 0 0 1-3.47-.63l-.25-.1-4.88.95.98-4.76-.16-.26a9.87 9.87 0 0 1-1.52-5.26c0-5.47 4.46-9.92 9.94-9.92a9.87 9.87 0 0 1 9.93 9.93c0 5.47-4.46 9.92-9.93 9.92zm5.45-7.43c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/>
+  </svg>
 </a>
 
 <script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // duplicate ticker content for seamless loop
+  const track = document.getElementById('tickerTrack');
+  track.innerHTML += track.innerHTML;
+
+  // sticky nav background
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
+  window.addEventListener('scroll', ()=> {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  // reveal on scroll
+  const items = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((es)=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold:0.12 });
+    items.forEach(i=>io.observe(i));
+  } else { items.forEach(i=>i.classList.add('is-visible')); }
+
+  window.addEventListener('resize', ()=>{
+    if(window.innerWidth > 880){ document.getElementById('mmenu').classList.remove('open'); }
+  });
+
+  // ===== review carousel: rotates every 10s, dots, pause on hover =====
+  (function(){
+    const carousel = document.getElementById('reviewCarousel');
+    if(!carousel) return;
+    const slides = carousel.querySelectorAll('.review-slide');
+    const dotsBox = document.getElementById('reviewDots');
+    let current = 0, timer = null;
+    const INTERVAL = 10000;
+
+    slides.forEach((_, i)=>{
+      const d = document.createElement('button');
+      d.setAttribute('aria-label', 'Avaliação ' + (i+1));
+      d.addEventListener('click', ()=>{ show(i); restart(); });
+      dotsBox.appendChild(d);
+    });
+    const dots = dotsBox.querySelectorAll('button');
+
+    function show(i){
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = i;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+    function next(){ show((current+1) % slides.length); }
+    function restart(){ clearInterval(timer); timer = setInterval(next, INTERVAL); }
+
+    dots[0].classList.add('active');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduced && slides.length > 1){
+      timer = setInterval(next, INTERVAL);
+      carousel.addEventListener('mouseenter', ()=>clearInterval(timer));
+      carousel.addEventListener('mouseleave', restart);
+    }
+  })();
 </script>
 
 </body>
