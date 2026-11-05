@@ -1,0 +1,29 @@
+# Bravo Auto Center
+
+> Oficina mecânica e autocenter em Cachoeira do Sul/RS, especializada em suspensão, direção e freios. Tem a Ruidcar, equipamento para diagnóstico de ruídos de suspensão e direção, e também faz alinhamento 3D, balanceamento, pneus, escapamento em aço inox e troca de óleo.
+
+- Endereço: Rua Aparício Borges, 538, bairro São José, Cachoeira do Sul/RS
+- Telefone: (51) 3723-7098
+- WhatsApp: (51) 99521-3636
+- Horário: segunda a sexta, 08h–12h e 13h30–17h30; sábado, 08h–12h; domingo, fechado
+
+## Serviços
+
+- [Diagnóstico de ruídos com Ruidcar](https://www.bravoautocenter.com.br/servicos/ruidcar.html)
+- [Suspensão com diagnóstico pela Ruidcar](https://www.bravoautocenter.com.br/servicos/suspensao-ruidcar.html)
+- [Direção](https://www.bravoautocenter.com.br/servicos/direcao.html)
+- [Freios](https://www.bravoautocenter.com.br/servicos/freios.html)
+- [Alinhamento 3D e balanceamento](https://www.bravoautocenter.com.br/servicos/geometria-balanceamento.html)
+- [Pneus](https://www.bravoautocenter.com.br/servicos/pneus.html)
+- [Escapamento](https://www.bravoautocenter.com.br/servicos/escapamento.html)
+- [Troca de óleo](https://www.bravoautocenter.com.br/servicos/troca-de-oleo.html)
+
+## Perguntas frequentes
+
+- [Perguntas sobre a oficina](https://www.bravoautocenter.com.br/#perguntas)
+- A oficina não faz conserto de pneu furado (borracharia). Trabalha com venda e montagem de pneus.
+- Não publicamos preço fechado de serviços. Para orçamento, ligue ou chame no WhatsApp.
+
+## Optional
+
+- [Mapa do site](https://www.bravoautocenter.com.br/sitemap.xml)
